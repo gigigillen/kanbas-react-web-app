@@ -1,117 +1,152 @@
+import { IoCalendarOutline } from "react-icons/io5";
+
+
 export default function AssignmentEditor() {
     return (
-        <div id="wd-assignments-editor">
-            <label htmlFor="wd-name"><h3>Assignment Name</h3></label>
-            <input id="wd-name" value="A1 - ENV + HTML" /><br />
-            <textarea id="wd-description">
-                The assignment is available online Submit a link to the landing page of
-            </textarea>
-            <br />
-            <table>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-points">Points</label>
-                    </td>
-                    <td>
-                        <input id="wd-points" value={100} />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-group">Assignment Group</label>
-                    </td>
-                    <td>
-                        <select id="wd-group">
+
+        <div>
+            <div id="wd-assignment-form">
+                <div className="mb-3 row">
+                    <label htmlFor="input1" className="form-label">
+                        Assignment Name</label>
+                    <input type="text" value="A1" className="form-control" />
+                </div>
+                <div className="mb-3 row">
+                    <textarea className="form-control" id="textarea1"
+                        rows={3}></textarea>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-3 d-flex align-items-center justify-content-end">
+                        <label htmlFor="input1" className="form-label">
+                            Points</label>
+                    </div>
+                    <div className="col">
+                        <input type="text" value="100" className="form-control" />
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-3 d-flex align-items-center justify-content-end">
+                        <label htmlFor="input1" className="form-label">
+                            Assignment Group</label>
+                    </div>
+                    <div className="col">
+                        <select className="form-select">
                             <option selected value="ASSIGNMENTS">ASSIGNMENTS</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-display-grade-as">Display Grade As</label>
-                    </td>
-                    <td>
-                        <select id="wd-display-grade-a">
-                            <option selected value="PERCENTAGE">Percentage</option>
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-3 d-flex align-items-center justify-content-end">
+                        <label htmlFor="input1" className="form-label">
+                            Display Grade as</label>
+                    </div>
+                    <div className="col">
+                        <select className="form-select">
+                            <option selected value="Percentage">PERCENTAGE</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" valign="top">
-                        <label htmlFor="wd-submission-type">Submission Type</label>
-                    </td>
-                    <td>
-                        <select id="wd-submission-type">
-                            <option selected value="ONLINE">Online</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <label>Online Entry Options</label><br />
-
-                        <input type="checkbox" name="submission-type" id="wd-text-entry" />
-                        <label htmlFor="wd-text-entry">Text Entry</label><br />
-
-                        <input type="checkbox" name="submission-type" id="wd-website-url" />
-                        <label htmlFor="wd-website-url">Website URL</label><br />
-
-                        <input type="checkbox" name="submission-type" id="wd-media-recordings" />
-                        <label htmlFor="wd-media-recordings">Media Recordings</label><br />
-
-                        <input type="checkbox" name="submission-type" id="wd-student-annotation" />
-                        <label htmlFor="wd-student-annotation">Student Annotation</label><br />
-
-                        <input type="checkbox" name="submission-type" id="wd-file-upload" />
-                        <label htmlFor="wd-file-upload">File Upload</label><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right"><label>Assign</label><br /></td>
-                    <td>
-                        <label htmlFor="wd-assign-to">Assign to</label><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="text" id="wd-assign-to" value="Everyone" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label htmlFor="wd-due-date">Due</label><br />
-                        <input type="date"
-                            id="wd-due-date"
-                            value="2024-05-13" />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label htmlFor="wd-available-from">Available from</label><br />
-                        <input type="date"
-                            id="wd-due-date"
-                            value="2024-05-6" />
-                    </td>
-                    <td>
-                        <label htmlFor="wd-available-until">Until</label><br />
-                        <input type="date"
-                            id="wd-due-date"
-                            value="2024-05-20" />
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-3 d-flex align-items-top justify-content-end">
+                        <label htmlFor="input1" className="form-label">
+                            Submission Type</label>
+                    </div>
+                    <div className="col">
+                        <div className="mb-3 row">
+                            <select className="form-select">
+                                <option selected value="Online">ONLINE</option>
+                            </select>
+                        </div>
+                        <div className="mb-3 row">
+                            <label htmlFor="input1" className="form-label">
+                                Online Entry Options</label>
+                        </div>
+                        <div className="row mb-3">
+                            <div className="form-check mb-3">
+                                <input className="form-check-input" type="checkbox" />
+                                <label className="form-check-label" htmlFor="r6">
+                                    Text Entry </label>
+                            </div>
+                            <div className="form-check mb-3">
+                                <input className="form-check-input" type="checkbox" />
+                                <label className="form-check-label" htmlFor="r6">
+                                    Website URL </label>
+                            </div>
+                            <div className="form-check mb-3">
+                                <input className="form-check-input" type="checkbox" />
+                                <label className="form-check-label" htmlFor="r6">
+                                    Media Recordings </label>
+                            </div>
+                            <div className="form-check mb-3">
+                                <input className="form-check-input" type="checkbox" />
+                                <label className="form-check-label" htmlFor="r6">
+                                    Student Annotation </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" />
+                                <label className="form-check-label" htmlFor="r6">
+                                    File Uploads </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-3 d-flex align-items-top justify-content-end">
+                        <label htmlFor="input1" className="form-label">
+                            Assign</label>
+                    </div>
+                    <div className="col">
+                        <div className="row">
+                            <h5>Assign to</h5>
+                        </div>
+                        <div className="row mb-3">
+                            <input type="text" value="Everyone" className="form-control" />
+                        </div>
+                        <div>
+                            <h5>Due</h5>
+                        </div>
+                        <div className="row">
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" />
+                                <span className="input-group-text"><IoCalendarOutline /></span>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <h5>Available From</h5>
+                            </div>
+                            <div className="col">
+                                <h5>Until</h5>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <div className="input-group">
+                                    <input type="date" className="form-control" value="2024-05-20" />
+                                    <span className="input-group-text"><IoCalendarOutline /></span>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="input-group">
+                                    <input type="date" className="form-control" value="2024-05-20" />
+                                    <span className="input-group-text">
+                                        <IoCalendarOutline />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <hr />
-            <table width="100%">
-                <tr>
-                    <td align="right">
-                        <button>Cancel</button>
-                        <button>Save</button>
-                    </td>
-                </tr>
-            </table>
+            <div className="d-flex justify-content-end">
+                <button className="btn btn-lg btn-secondary">
+                    Cancel
+                </button>
+                <button className="btn btn-lg btn-danger">
+                    Save
+                </button>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,23 @@
+.group-button{
+    border-color: #a1a1a1; /* Light gray outline color */
+    border-width: 1px; /* Width of the outline */
+    border-style: solid; /* Solid border style */
+    border-radius: 2px; /* Adjust to make the button less rounded */
+    background-color: #e6e6e6; /* Lighter gray background color */
+  }
+
+
+  .assignment-button{
+    border-radius: 2px; /* Adjust to make the button less rounded */
+  }
+
+
+  .fourty-percent{
+    border-radius: 20px;
+  }
+
+  .green-left-border {
+    border-left: 4px solid green; /* Adjust thickness and color as needed */
+  }
+
+
