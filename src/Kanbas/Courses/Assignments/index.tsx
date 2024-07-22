@@ -6,14 +6,14 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { LiaBrailleSolid } from "react-icons/lia";
 import { RxTriangleDown } from "react-icons/rx";
-
-
-
-
-
+import { useParams,  } from "react-router";
+import * as db from "../../Database";
 
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.assignments;
+
   return (
     <div id="wd-assignments">
       <div className="row">
@@ -47,29 +47,34 @@ export default function Assignments() {
                 <IoEllipsisVertical className="fs-4" />
               </div>
             </div>
-            <div className="wd-lessons list-group rounded-0">
-              <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
-                <div>
-                  <LiaBrailleSolid className="fs-4" />
-                  <a href="#/Kanbas/Courses/1234/Assignments/123">
-                    <PiNotePencilThin className="text-success me-4 fs-3" />
-                  </a>
+
+            {assignments
+              .filter((assignment: any) => assignment.course === cid)
+              .map((assignment: any) => (<div className="wd-lessons list-group rounded-0">
+                <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
+                  <div>
+                    <LiaBrailleSolid className="fs-4" />
+                    <a href={`#/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}>
+                      <PiNotePencilThin className="text-success me-4 fs-3" />
+                    </a>
+                  </div>
+                  <div>
+                    <h4><b>{assignment.title}</b></h4>
+                    <span className="text-danger">Multiple Modules</span>
+                    <span className="ms-3 me-3">|</span>
+                    <span>Multiple Modules</span>
+                    <span className="ms-3 me-3">|</span>
+                    <b>Not available until </b>
+                    {assignment.available} <br></br>
+                    <b>Due</b> {assignment.due} <span className="ms-3 me-3">|</span> 100pts
+                  </div>
+                  <div>
+                    <LessonControlButtons />
+                  </div>
                 </div>
-                <div>
-                  <h4><b>A1</b></h4>
-                  <span className="text-danger">Multiple Modules</span>
-                  <span className="ms-3 me-3">|</span>
-                  <span>Multiple Modules</span>
-                  <span className="ms-3 me-3">|</span>
-                  <b>Not available until </b>
-                  May 6 at 12:00am | <br></br>
-                  <b>Due</b> May 13 at 11:59pm <span className="ms-3 me-3">|</span> 100pts
-                </div>
-                <div>
-                  <LessonControlButtons />
-                </div>
-              </div>
-              <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
+              </div>))}
+
+            {/* <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
                 <div>
                   <LiaBrailleSolid className="fs-4" />
                   <a href="#/Kanbas/Courses/1234/Assignments/123">
@@ -89,8 +94,8 @@ export default function Assignments() {
                 <div>
                   <LessonControlButtons />
                 </div>
-              </div>
-              <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
+              </div> */}
+            {/* <div className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center green-left-border">
                 <div>
                   <LiaBrailleSolid className="fs-4" />
                   <a href="#/Kanbas/Courses/1234/Assignments/123">
@@ -110,8 +115,7 @@ export default function Assignments() {
                 <div>
                   <LessonControlButtons />
                 </div>
-              </div>
-            </div>
+              </div> */}
           </div>
         </div>
       </div>

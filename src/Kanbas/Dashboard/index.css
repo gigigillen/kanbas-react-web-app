@@ -1,0 +1,9 @@
+
+/* make sure all images are uniform size  */
+  .card img {
+    width: 100%; 
+    height: 160px;
+    object-fit: cover;
+    object-position: center;
+  }
+  

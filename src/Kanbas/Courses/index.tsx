@@ -2,18 +2,27 @@ import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Grades from "./Grades";
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes, useParams, useLocation } from "react-router";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
+//deconstruct
+import { courses } from "../Database";
 
 
 export default function Courses() {
+
+  const { cid } = useParams();
+  //assign cid
+  const course = courses.find((course) => course._id === cid);
+  const { pathname } = useLocation();
+
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        Course 1234
+        {/* only renders if course is defined (course != null) */}
+        {course && course.name} &gt; {pathname.split("/")[4]}
       </h2>
       <hr />
       <div className="row">
