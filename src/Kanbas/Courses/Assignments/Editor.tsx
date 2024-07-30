@@ -2,12 +2,16 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import * as db from "../../Database";
 import { Link } from 'react-router-dom';
+import { addAssignment } from "./reducer";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 
 export default function AssignmentEditor() {
     const { aid } = useParams();
     const assignments = db.assignments;
     const assignment = assignments.find((assignment) => assignment._id === aid);
+    const dispatch = useDispatch();
     
     return (
 
@@ -28,7 +32,7 @@ export default function AssignmentEditor() {
                             Points</label>
                     </div>
                     <div className="col">
-                        <input type="text" value="100" className="form-control" />
+                        <input type="text" className="form-control" />
                     </div>
                 </div>
                 <div className="mb-3 row">
