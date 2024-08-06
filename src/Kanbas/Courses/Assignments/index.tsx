@@ -6,16 +6,14 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { LiaBrailleSolid } from "react-icons/lia";
 import { RxTriangleDown } from "react-icons/rx";
 import { useParams, } from "react-router";
-import * as db from "../../Database";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
-import AssignmentControlButtons from "./AssignmentControlButtons";
-import { addAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { useState, useEffect } from "react";
+import { addAssignment, deleteAssignment, setAssignments } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import ConfirmationModal from "./ConfirmationModal";
-
+import * as client from "./client";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -23,6 +21,27 @@ export default function Assignments() {
 
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
+
+  const createAssignment = async (assignment: any) => {
+    const newAssignment = await client.createAssignment(assignment);
+    dispatch(addAssignment(newAssignment))
+  }
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  }
+
+
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
 
   return (
     <div id="wd-assignments">
@@ -36,7 +55,9 @@ export default function Assignments() {
             Group
           </button>
 
-          <Link to={`/Kanbas/Courses/${cid}/Assignments/new`} className="btn btn-lg btn-danger text-white assignment-button">
+          <Link
+            to={`/Kanbas/Courses/${cid}/assignments/new`}
+            className="btn btn-lg btn-danger text-white assignment-button">
             <AiOutlinePlus className="me-2 fs-5" />
             Assignment
           </Link>
@@ -88,10 +109,8 @@ export default function Assignments() {
                       <IoEllipsisVertical className="fs-4" />
                       <ConfirmationModal
                         assignmentId={assignment._id}
-                        deleteAssignment={(assignmentId) => {
-                          dispatch(deleteAssignment(assignmentId))
-                        }}
-                         />
+                        deleteAssignment={(assignmentId) => { removeAssignment(assignmentId); }}
+                      />
                     </div>
                   </div>
                 </div>
