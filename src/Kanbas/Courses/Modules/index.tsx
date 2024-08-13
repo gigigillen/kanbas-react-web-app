@@ -1,7 +1,7 @@
 import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { setModules, addModule, editModule, updateModule, deleteModule }
   from "./reducer";
@@ -9,9 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import * as client from "./client";
 
 
-
-
 export default function Modules() {
+  const navigate = useNavigate();
   const { cid } = useParams();
 
   //module itself needs to be handled in component
@@ -27,26 +26,61 @@ export default function Modules() {
     dispatch(updateModule(module));
   };
 
+  // const saveModule = async (module: any) => {
+  //   const updatedModule = {...module};
+  //   await client.updateModule(updatedModule);
+  //   setModuleName(updatedModule);
+  // };
+
+  // const saveUser = async () => {
+  //   const [firstName, lastName] = name.split(" ");
+  //   const updatedUser = { ...user, firstName, lastName };
+  //   await client.updateUser(updatedUser);
+  //   setUser(updatedUser);
+  //   setEditing(false);
+  //   fetchUsers();
+  //   navigate(`/Kanbas/Courses/${cid}/People`);
+  // };
+
+
 
   //DELETE
   const removeModule = async (moduleId: string) => {
     await client.deleteModule(moduleId);
-    dispatch(deleteModule(moduleId));
+    fetchModules();
+    navigate(`/Kanbas/Courses/${cid}/modules`)
   };
+
+
 
 
   //CREATE
   const createModule = async (module: any) => {
-    const newModule = await client.createModule(cid as string, module);
-    dispatch(addModule(newModule));
+    const newModule = await client.createModule({
+    });
+    setModules([...modules, module]);
   };
+
+  // const createUser = async () => {
+  //   const user = await client.createUser({
+  //     firstName: "New",
+  //     lastName: `User${users.length + 1}`,
+  //     username: `newuser${Date.now()}`,
+  //     password: "password123",
+  //     section: "S101",
+  //     role: "STUDENT",
+  //   });
+  //   setUsers([...users, user]);
+  // };
+
 
 
   //get modules for course
   const fetchModules = async () => {
-    const modules = await client.findModulesForCourse(cid as string);
+    const modules = await client.findModulesByCourse(cid as string);
     dispatch(setModules(modules));
   };
+
 
   //display upon load
   useEffect(() => {
@@ -75,7 +109,6 @@ export default function Modules() {
       <ul id="wd-modules" className="list-group rounded-0">
 
         {modules
-          .filter((module: any) => module.course === cid)
           .map((module: any) => (
             <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">

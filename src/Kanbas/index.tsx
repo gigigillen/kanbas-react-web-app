@@ -9,9 +9,14 @@ import { useEffect, useState } from 'react';
 import * as client from "./Courses/client";
 import store from "./store";
 import { Provider } from "react-redux";
+import Account from './Courses/Account';
+import Session from './Courses/Account/Session';
+import ProtectedRoute from './Courses/Account/ProtectedRoute';
+import { useNavigate} from "react-router";
 
 //entry point to kanbas application
 export default function Kanbas() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState<any[]>([]);
 
   const fetchCourses = async () => {
@@ -31,33 +36,24 @@ export default function Kanbas() {
     startDate: "2023-09-10", endDate: "2023-12-15",
     image: "/images/reactjs.jpg", description: "New Description"
   });
-  //uses template course as a starting point, and lets us override what we need to
-  // const addNewCourse = () => {
-  //   //will come to refractor this
-  //   const newCourse = {
-  //     ...course,
-  //     //updates id to unique timestamp
-  //     _id: new Date().getTime().toString()
-  //   };
-  //   //appending new course to courses array
-  //   setCourses([newCourse, ...courses]);
-  // };
 
   //CONVERT TO AN ASYNC FUNCTION
-  const addNewCourse = async () => {
-    const newCourse = await client.createCourse(course);
-    setCourses([...courses, newCourse]);
-  };
-
-
-  // const deleteCourse = (courseId: string) => {
-  //   setCourses(courses.filter((course: any) => course._id !== courseId));
+  // const addNewCourse = async () => {
+  //   const newCourse = await client.createCourse(course);
+  //   setCourses([...courses, newCourse]);
   // };
-  //CONVERT TO ASYNC
+
+  const addNewCourse = async () => {
+    const course = await client.createCourse({
+    });
+    setCourses([...courses, course]);
+  }
+
+
   const deleteCourse = async (courseId: string) => {
     await client.deleteCourse(courseId);
-    setCourses(courses.filter(
-      (c) => c._id !== courseId));
+    fetchCourses();
+    navigate(`/Kanbas/Dashboard`);
   };
 
   //CONVERTTED TO ASYNC
@@ -77,27 +73,43 @@ export default function Kanbas() {
 
 
 
+
   return (
     <Provider store={store}>
-      <div id="wd-kanbas">
-        <KanbasNavigation />
-        <div className="wd-main-content-offset p-3">
-          <Routes>
-            <Route path="/" element={<Navigate to="Dashboard" />} />
-            <Route path="Account" element={<h1>Account</h1>} />
-            <Route path="Dashboard" element={<Dashboard
-              courses={courses}
-              course={course}
-              setCourse={setCourse}
-              addNewCourse={addNewCourse}
-              deleteCourse={deleteCourse}
-              updateCourse={updateCourse} />} />
-            <Route path="Courses/:cid/*" element={<Courses courses={courses} />} />
-            <Route path="Calendar" element={<h1>Calendar</h1>} />
-            <Route path="Inbox" element={<h1>Inbox</h1>} />
-          </Routes>
+      <Session>
+        <div id="wd-kanbas">
+          <KanbasNavigation />
+          <div className="wd-main-content-offset p-3">
+            <Routes>
+              <Route path="/" element={<Navigate to="Dashboard" />} />
+              <Route path="Account/*" element={<Account />} />
+              <Route path="Dashboard" element={
+                //only displays dashboard if you're logged in
+                // <ProtectedRoute>
+                  <Dashboard
+                    courses={courses}
+                    course={course}
+                    setCourse={setCourse}
+                    addNewCourse={addNewCourse}
+                    deleteCourse={deleteCourse}
+                    updateCourse={updateCourse}
+                  />
+                // </ ProtectedRoute>
+              }
+              />
+              <Route
+                path="Courses/:cid/*"
+                element={
+                  <ProtectedRoute>
+                    <Courses courses={courses} />
+                  </ProtectedRoute>
+                } />
+              <Route path="Calendar" element={<h1>Calendar</h1>} />
+              <Route path="Inbox" element={<h1>Inbox</h1>} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </Session>
     </Provider>
   );
 }
