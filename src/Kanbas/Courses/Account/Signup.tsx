@@ -14,7 +14,10 @@ export default function Signup() {
   const dispatch = useDispatch();
   const signup = async () => {
     try {
-      const currentUser = await client.signup(user);
+      const currentUser = await client.signup({
+        ...user,
+        email: `${user.username}@example.com`
+      });
       dispatch(setCurrentUser(currentUser));
       navigate("/Kanbas/Account/Profile");
     } catch (err: any) {
@@ -23,10 +26,11 @@ export default function Signup() {
   };
 
 
+
   return (
     <div className="wd-signup-screen">
       <h1>Sign up</h1>
-      
+
       {error && <div className="wd-error alert alert-danger">{error}</div>}
 
       <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })}
@@ -38,3 +42,5 @@ export default function Signup() {
     </div>
   );
 }
+
+
