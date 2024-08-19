@@ -26,23 +26,6 @@ export default function Modules() {
     dispatch(updateModule(module));
   };
 
-  // const saveModule = async (module: any) => {
-  //   const updatedModule = {...module};
-  //   await client.updateModule(updatedModule);
-  //   setModuleName(updatedModule);
-  // };
-
-  // const saveUser = async () => {
-  //   const [firstName, lastName] = name.split(" ");
-  //   const updatedUser = { ...user, firstName, lastName };
-  //   await client.updateUser(updatedUser);
-  //   setUser(updatedUser);
-  //   setEditing(false);
-  //   fetchUsers();
-  //   navigate(`/Kanbas/Courses/${cid}/People`);
-  // };
-
-
 
   //DELETE
   const removeModule = async (moduleId: string) => {
@@ -52,27 +35,12 @@ export default function Modules() {
   };
 
 
-
-
   //CREATE
   const createModule = async (module: any) => {
     const newModule = await client.createModule({
     });
     setModules([...modules, module]);
   };
-
-  // const createUser = async () => {
-  //   const user = await client.createUser({
-  //     firstName: "New",
-  //     lastName: `User${users.length + 1}`,
-  //     username: `newuser${Date.now()}`,
-  //     password: "password123",
-  //     section: "S101",
-  //     role: "STUDENT",
-  //   });
-  //   setUsers([...users, user]);
-  // };
-
 
 
   //get modules for course
@@ -90,13 +58,6 @@ export default function Modules() {
 
   return (
     <div id="wd-modules">
-
-      {/* <ModulesControls moduleName={moduleName} setModuleName={setModuleName}
-        addModule={() => {
-          dispatch(addModule({ name: moduleName, course: cid }));
-          setModuleName("");
-        }}
-      /> */}
 
       <ModulesControls moduleName={moduleName} setModuleName={setModuleName}
         addModule={() => {

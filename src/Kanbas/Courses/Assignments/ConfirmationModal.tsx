@@ -7,7 +7,7 @@ export default function ConfirmationModal({assignmentId, deleteAssignment} :
     return (
         <div id="delete-confirmation-modal" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
             <div className="modal-dialog">
-                <div className="modal-content">
+                <div>
                     <div className="modal-header">
                         <h1> Are you sure? </h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal"></button>

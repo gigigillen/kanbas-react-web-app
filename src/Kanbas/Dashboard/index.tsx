@@ -39,8 +39,8 @@ export default function Dashboard({
 
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
-        <div className="row row-cols-1 row-cols-md-5 g-4">
 
+        <div className="row row-cols-1 row-cols-md-5 g-4">
           {/* iterating through all courses */}
           {courses.map((course) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
@@ -60,20 +60,11 @@ export default function Dashboard({
                     </p>
                     {/* go button */}
                     <Link to={`/Kanbas/Courses/${course._id}/Home`} className="btn btn-primary">Go</Link>
-                    {/* delete button */}
-                    {/* <button onClick={(event) => {
-                      event.preventDefault();
-                      deleteCourse(course._id);
-                    }} className="btn btn-danger float-end"
-                      id="wd-delete-course-click">
-                      Delete
-                    </button> */}
                     <button onClick={() => deleteCourse(course._id)}
                       className="btn btn-danger float-end"
                       id="wd-delete-course-click">
                       Delete
                     </button>
-
                     {/* edit button */}
                     <button id="wd-edit-course-click"
                       onClick={(event) => {

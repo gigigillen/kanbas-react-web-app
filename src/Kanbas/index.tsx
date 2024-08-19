@@ -12,7 +12,8 @@ import { Provider } from "react-redux";
 import Account from './Courses/Account';
 import Session from './Courses/Account/Session';
 import ProtectedRoute from './Courses/Account/ProtectedRoute';
-import { useNavigate} from "react-router";
+import { useNavigate } from "react-router";
+import Napster from '../Napster';
 
 //entry point to kanbas application
 export default function Kanbas() {
@@ -36,12 +37,6 @@ export default function Kanbas() {
     startDate: "2023-09-10", endDate: "2023-12-15",
     image: "/images/reactjs.jpg", description: "New Description"
   });
-
-  //CONVERT TO AN ASYNC FUNCTION
-  // const addNewCourse = async () => {
-  //   const newCourse = await client.createCourse(course);
-  //   setCourses([...courses, newCourse]);
-  // };
 
   const addNewCourse = async () => {
     const course = await client.createCourse({
@@ -85,7 +80,7 @@ export default function Kanbas() {
               <Route path="Account/*" element={<Account />} />
               <Route path="Dashboard" element={
                 //only displays dashboard if you're logged in
-                // <ProtectedRoute>
+                <ProtectedRoute>
                   <Dashboard
                     courses={courses}
                     course={course}
@@ -94,9 +89,10 @@ export default function Kanbas() {
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
                   />
-                // </ ProtectedRoute>
+                </ ProtectedRoute>
               }
               />
+
               <Route
                 path="Courses/:cid/*"
                 element={
@@ -104,6 +100,7 @@ export default function Kanbas() {
                     <Courses courses={courses} />
                   </ProtectedRoute>
                 } />
+              <Route path="Napster/*" element={<Napster />} />
               <Route path="Calendar" element={<h1>Calendar</h1>} />
               <Route path="Inbox" element={<h1>Inbox</h1>} />
             </Routes>

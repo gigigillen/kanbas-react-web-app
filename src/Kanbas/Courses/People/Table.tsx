@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
 export default function PeopleTable() {
-
     const { cid } = useParams();
 
     const [users, setUsers] = useState<any[]>([]);
@@ -93,13 +92,13 @@ export default function PeopleTable() {
                 <tbody>
                     {users.map((user: any) => (
                         <tr key={user._id}>
-                            <Link to={`${user._id}`}>
-                                <td className="wd-full-name text-nowrap">
+                            <td className="wd-full-name text-nowrap">
+                                <Link to={`/Kanbas/Courses/${cid}/People/${user._id}`} className="text-decoration-none text-reset">
                                     <span className="wd-first-name">{user.firstName}</span>
                                     <span> </span>
                                     <span className="wd-last-name">{user.lastName}</span>
-                                </td>
-                            </Link>
+                                </Link>
+                            </td>
                             <td className="wd-login-id">{user.loginId}</td>
                             <td className="wd-section">{user.section}</td>
                             <td className="wd-role">{user.role}</td>
